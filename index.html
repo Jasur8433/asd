@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KPI Digital University — рабочая система KPI цифровизации</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div>
+          <p class="eyebrow">KPI Digital University</p>
+          <h1>Система KPI цифровизации вуза</h1>
+        </div>
+        <div class="controls">
+          <label class="inline-field">
+            Текущая роль
+            <select id="roleFilter">
+              <option value="all">Все роли</option>
+              <option value="admin">Администратор</option>
+              <option value="head">Руководитель</option>
+              <option value="employee">Сотрудник</option>
+            </select>
+          </label>
+          <button id="themeToggle" class="btn btn-ghost" type="button">🌙 Тёмная тема</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-tabs container" aria-label="Разделы">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="kpi">KPI модуль</button>
+      <button class="tab" data-tab="employees">Сотрудники</button>
+      <button class="tab" data-tab="results">Результаты</button>
+      <button class="tab" data-tab="reports">Отчёты</button>
+      <button class="tab" data-tab="admin">Админ-панель</button>
+    </nav>
+
+    <main class="container main-grid">
+      <section class="panel active" id="dashboard">
+        <h2>Общий статус цифровизации</h2>
+        <div class="stats-grid" id="statsGrid"></div>
+        <article class="card">
+          <h3>Выполнение KPI по подразделениям</h3>
+          <div id="departmentBars" class="bars"></div>
+        </article>
+      </section>
+
+      <section class="panel" id="kpi">
+        <div class="panel-head">
+          <h2>KPI модуль</h2>
+          <button type="button" class="btn" id="seedDataBtn">Сбросить демо‑данные</button>
+        </div>
+        <div class="split">
+          <article class="card">
+            <h3>Добавить KPI</h3>
+            <form id="kpiForm" class="form-grid">
+              <label>Название KPI<input name="name" required /></label>
+              <label>Категория
+                <select name="category" required>
+                  <option value="service">Сервис</option>
+                  <option value="projects">Проекты</option>
+                  <option value="security">Безопасность</option>
+                  <option value="growth">Развитие</option>
+                </select>
+              </label>
+              <label>Вес (%)<input name="weight" type="number" min="1" max="100" required /></label>
+              <label>План (target)<input name="target" type="number" min="1" required /></label>
+              <button class="btn" type="submit">Добавить KPI</button>
+            </form>
+            <p class="muted">* Суммарный вес KPI должен стремиться к 100% на период.</p>
+          </article>
+          <article class="card">
+            <h3>Список KPI</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Название</th><th>Категория</th><th>Вес</th><th>План</th><th></th></tr>
+                </thead>
+                <tbody id="kpiTable"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="employees">
+        <h2>Сотрудники и роли</h2>
+        <div class="split">
+          <article class="card">
+            <h3>Добавить сотрудника</h3>
+            <form id="userForm" class="form-grid">
+              <label>ФИО<input name="name" required /></label>
+              <label>Роль
+                <select name="role" required>
+                  <option value="admin">Администратор</option>
+                  <option value="head">Руководитель</option>
+                  <option value="employee">Сотрудник</option>
+                </select>
+              </label>
+              <label>Подразделение<input name="department" required /></label>
+              <button class="btn" type="submit">Добавить</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Список сотрудников</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ФИО</th><th>Роль</th><th>Подразделение</th></tr>
+                </thead>
+                <tbody id="usersTable"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="results">
+        <h2>Ввод фактических результатов</h2>
+        <div class="split">
+          <article class="card">
+            <h3>Добавить результат</h3>
+            <form id="resultForm" class="form-grid">
+              <label>Сотрудник<select name="userId" id="resultUser" required></select></label>
+              <label>KPI<select name="kpiId" id="resultKpi" required></select></label>
+              <label>Факт<input name="fact" type="number" min="0" required /></label>
+              <button class="btn" type="submit">Сохранить результат</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Журнал результатов</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Сотрудник</th><th>KPI</th><th>План</th><th>Факт</th><th>Выполнение</th><th>Взвешенный KPI</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTable"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="reports">
+        <h2>Отчёты</h2>
+        <article class="card">
+          <p>Сформируйте выгрузку по сотрудникам, подразделениям и KPI.</p>
+          <div class="report-actions">
+            <button id="exportCsvBtn" class="btn">Экспорт в CSV (Excel)</button>
+            <button id="printBtn" class="btn btn-ghost">Печать (PDF через браузер)</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Подразделение</th><th>Сотрудник</th><th>Средний KPI</th><th>Уровень</th></tr>
+              </thead>
+              <tbody id="reportTable"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" id="admin">
+        <h2>Админ-панель: минимальные требования внедрения</h2>
+        <article class="card checklist">
+          <ol>
+            <li>Утвердить положение о KPI и матрицу ролей приказом руководителя.</li>
+            <li>Определить не менее 4 категорий KPI (сервис, проекты, ИБ, развитие).</li>
+            <li>Назначить источники данных и долю автоматизированных метрик ≥ 70%.</li>
+            <li>Проводить ежеквартальную оценку и анализ отклонений.</li>
+            <li>Вести историю метрик минимум 3 года и ежегодный пересмотр модели.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-row">
+        <p>© 2026 KPI Digital University</p>
+        <p>Минимально рабочая система управления KPI цифровизации.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
