@@ -3,173 +3,185 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KPI-Цифра ВУЗ — минимальные требования внедрения</title>
+    <title>KPI Digital University — рабочая система KPI цифровизации</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="hero">
-      <div class="container">
-        <p class="tag">Методический портал для ВУЗов</p>
-        <h1>Минимальные требования по внедрению KPI-системы</h1>
-        <p class="subtitle">
-          Оценка эффективности сотрудников подразделений, ответственных за цифровизацию
-          в высших образовательных учреждениях.
-        </p>
-        <a href="#checklist" class="btn btn-primary">Перейти к чек‑листу внедрения</a>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div>
+          <p class="eyebrow">KPI Digital University</p>
+          <h1>Система KPI цифровизации вуза</h1>
+        </div>
+        <div class="controls">
+          <label class="inline-field">
+            Текущая роль
+            <select id="roleFilter">
+              <option value="all">Все роли</option>
+              <option value="admin">Администратор</option>
+              <option value="head">Руководитель</option>
+              <option value="employee">Сотрудник</option>
+            </select>
+          </label>
+          <button id="themeToggle" class="btn btn-ghost" type="button">🌙 Тёмная тема</button>
+        </div>
       </div>
     </header>
 
-    <main>
-      <section class="section" id="about">
-        <div class="container grid-2">
+    <nav class="nav-tabs container" aria-label="Разделы">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="kpi">KPI модуль</button>
+      <button class="tab" data-tab="employees">Сотрудники</button>
+      <button class="tab" data-tab="results">Результаты</button>
+      <button class="tab" data-tab="reports">Отчёты</button>
+      <button class="tab" data-tab="admin">Админ-панель</button>
+    </nav>
+
+    <main class="container main-grid">
+      <section class="panel active" id="dashboard">
+        <h2>Общий статус цифровизации</h2>
+        <div class="stats-grid" id="statsGrid"></div>
+        <article class="card">
+          <h3>Выполнение KPI по подразделениям</h3>
+          <div id="departmentBars" class="bars"></div>
+        </article>
+      </section>
+
+      <section class="panel" id="kpi">
+        <div class="panel-head">
+          <h2>KPI модуль</h2>
+          <button type="button" class="btn" id="seedDataBtn">Сбросить демо‑данные</button>
+        </div>
+        <div class="split">
           <article class="card">
-            <h2>Цель системы</h2>
-            <p>
-              KPI-система должна обеспечить прозрачную, измеримую и регулярную оценку результатов
-              работы подразделений цифровой трансформации: ИТ-служб, проектных офисов,
-              центров аналитики, EdTech и служб информационной безопасности.
-            </p>
-            <ul>
-              <li>Связь метрик с целями университета и программой развития.</li>
-              <li>Сопоставимость результатов между подразделениями.</li>
-              <li>Использование данных как основы управленческих решений.</li>
-            </ul>
+            <h3>Добавить KPI</h3>
+            <form id="kpiForm" class="form-grid">
+              <label>Название KPI<input name="name" required /></label>
+              <label>Категория
+                <select name="category" required>
+                  <option value="service">Сервис</option>
+                  <option value="projects">Проекты</option>
+                  <option value="security">Безопасность</option>
+                  <option value="growth">Развитие</option>
+                </select>
+              </label>
+              <label>Вес (%)<input name="weight" type="number" min="1" max="100" required /></label>
+              <label>План (target)<input name="target" type="number" min="1" required /></label>
+              <button class="btn" type="submit">Добавить KPI</button>
+            </form>
+            <p class="muted">* Суммарный вес KPI должен стремиться к 100% на период.</p>
           </article>
           <article class="card">
-            <h2>Область применения</h2>
-            <p>Минимальные требования распространяются на сотрудников, которые:</p>
-            <ul>
-              <li>разрабатывают и сопровождают цифровые сервисы;</li>
-              <li>обеспечивают устойчивость и безопасность ИТ-инфраструктуры;</li>
-              <li>ведут цифровые проекты и обучение персонала;</li>
-              <li>анализируют данные и формируют отчётность по цифровизации.</li>
-            </ul>
+            <h3>Список KPI</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Название</th><th>Категория</th><th>Вес</th><th>План</th><th></th></tr>
+                </thead>
+                <tbody id="kpiTable"></tbody>
+              </table>
+            </div>
           </article>
         </div>
       </section>
 
-      <section class="section section-accent" id="requirements">
-        <div class="container">
-          <h2>Минимальные требования к внедрению</h2>
-          <div class="cards-3">
-            <article class="card">
-              <h3>1. Нормативная база</h3>
-              <ul>
-                <li>Утверждённое положение о KPI (приказ ректора).</li>
-                <li>Матрица ролей и зон ответственности.</li>
-                <li>Регламент пересмотра показателей не реже 1 раза в год.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>2. Структура показателей</h3>
-              <ul>
-                <li>Не менее 4 категорий KPI: сервис, проекты, безопасность, развитие.</li>
-                <li>У каждого KPI: формула, источник данных, периодичность измерения, владелец.</li>
-                <li>Не менее 70% метрик должны быть автоматизированы.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>3. Управление данными</h3>
-              <ul>
-                <li>Единый реестр KPI и версионность изменений.</li>
-                <li>Источники: ITSM, LMS, BI, кадровая система, ИБ-мониторинг.</li>
-                <li>Хранение истории показателей минимум 3 года.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>4. Оценка и мотивация</h3>
-              <ul>
-                <li>Ежеквартальная оценка выполнения целей.</li>
-                <li>Пороговые уровни: критический, целевой, опережающий.</li>
-                <li>Связь результатов KPI с программами развития и стимулирования.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>5. Контроль качества</h3>
-              <ul>
-                <li>Проверка корректности данных и аудиторский след.</li>
-                <li>Механизм апелляций и разбор отклонений.</li>
-                <li>Публикация агрегированной отчётности для руководства.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>6. Подготовка персонала</h3>
-              <ul>
-                <li>Обучение руководителей и сотрудников работе с KPI.</li>
-                <li>Методические материалы и FAQ по расчёту показателей.</li>
-                <li>Ответственный администратор системы в каждом подразделении.</li>
-              </ul>
-            </article>
-          </div>
+      <section class="panel" id="employees">
+        <h2>Сотрудники и роли</h2>
+        <div class="split">
+          <article class="card">
+            <h3>Добавить сотрудника</h3>
+            <form id="userForm" class="form-grid">
+              <label>ФИО<input name="name" required /></label>
+              <label>Роль
+                <select name="role" required>
+                  <option value="admin">Администратор</option>
+                  <option value="head">Руководитель</option>
+                  <option value="employee">Сотрудник</option>
+                </select>
+              </label>
+              <label>Подразделение<input name="department" required /></label>
+              <button class="btn" type="submit">Добавить</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Список сотрудников</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ФИО</th><th>Роль</th><th>Подразделение</th></tr>
+                </thead>
+                <tbody id="usersTable"></tbody>
+              </table>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="section" id="calculator">
-        <div class="container">
-          <h2>Калькулятор интегрального KPI подразделения</h2>
-          <p class="hint">Введите вес и фактическое выполнение по 4 базовым категориям.</p>
-          <form id="kpi-form" class="kpi-form" novalidate>
-            <div class="row">
-              <label>Сервисная устойчивость (вес, %)
-                <input type="number" min="0" max="100" step="1" name="wService" value="25" required />
-              </label>
-              <label>Выполнение сервисных целей (%)
-                <input type="number" min="0" max="200" step="1" name="sService" value="100" required />
-              </label>
+      <section class="panel" id="results">
+        <h2>Ввод фактических результатов</h2>
+        <div class="split">
+          <article class="card">
+            <h3>Добавить результат</h3>
+            <form id="resultForm" class="form-grid">
+              <label>Сотрудник<select name="userId" id="resultUser" required></select></label>
+              <label>KPI<select name="kpiId" id="resultKpi" required></select></label>
+              <label>Факт<input name="fact" type="number" min="0" required /></label>
+              <button class="btn" type="submit">Сохранить результат</button>
+            </form>
+          </article>
+          <article class="card">
+            <h3>Журнал результатов</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Сотрудник</th><th>KPI</th><th>План</th><th>Факт</th><th>Выполнение</th><th>Взвешенный KPI</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTable"></tbody>
+              </table>
             </div>
-            <div class="row">
-              <label>Проектная реализация (вес, %)
-                <input type="number" min="0" max="100" step="1" name="wProject" value="25" required />
-              </label>
-              <label>Выполнение проектных целей (%)
-                <input type="number" min="0" max="200" step="1" name="sProject" value="100" required />
-              </label>
-            </div>
-            <div class="row">
-              <label>Кибербезопасность и ИБ (вес, %)
-                <input type="number" min="0" max="100" step="1" name="wSecurity" value="25" required />
-              </label>
-              <label>Выполнение целей ИБ (%)
-                <input type="number" min="0" max="200" step="1" name="sSecurity" value="100" required />
-              </label>
-            </div>
-            <div class="row">
-              <label>Цифровые компетенции и развитие (вес, %)
-                <input type="number" min="0" max="100" step="1" name="wGrowth" value="25" required />
-              </label>
-              <label>Выполнение целей развития (%)
-                <input type="number" min="0" max="200" step="1" name="sGrowth" value="100" required />
-              </label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Рассчитать KPI</button>
-            <p id="form-error" class="form-error" aria-live="polite"></p>
-          </form>
-
-          <div class="result" id="result" aria-live="polite">
-            Интегральный KPI: <strong>—</strong>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section class="section section-light" id="checklist">
-        <div class="container">
-          <h2>Пошаговый чек‑лист внедрения</h2>
-          <ol class="timeline">
-            <li><strong>Месяц 1:</strong> аудит процессов, утверждение проектной команды, инвентаризация источников данных.</li>
-            <li><strong>Месяц 2:</strong> разработка матрицы KPI по ролям, согласование формул и порогов.</li>
-            <li><strong>Месяц 3:</strong> настройка витрин данных и пилотного дашборда в одном подразделении.</li>
-            <li><strong>Месяц 4:</strong> обучение сотрудников, запуск регламента отчётности, корректировка метрик.</li>
-            <li><strong>Месяц 5+:</strong> масштабирование на весь университет, ежегодный пересмотр KPI-модели.</li>
+      <section class="panel" id="reports">
+        <h2>Отчёты</h2>
+        <article class="card">
+          <p>Сформируйте выгрузку по сотрудникам, подразделениям и KPI.</p>
+          <div class="report-actions">
+            <button id="exportCsvBtn" class="btn">Экспорт в CSV (Excel)</button>
+            <button id="printBtn" class="btn btn-ghost">Печать (PDF через браузер)</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Подразделение</th><th>Сотрудник</th><th>Средний KPI</th><th>Уровень</th></tr>
+              </thead>
+              <tbody id="reportTable"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel" id="admin">
+        <h2>Админ-панель: минимальные требования внедрения</h2>
+        <article class="card checklist">
+          <ol>
+            <li>Утвердить положение о KPI и матрицу ролей приказом руководителя.</li>
+            <li>Определить не менее 4 категорий KPI (сервис, проекты, ИБ, развитие).</li>
+            <li>Назначить источники данных и долю автоматизированных метрик ≥ 70%.</li>
+            <li>Проводить ежеквартальную оценку и анализ отклонений.</li>
+            <li>Вести историю метрик минимум 3 года и ежегодный пересмотр модели.</li>
           </ol>
-        </div>
+        </article>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-row">
-        <p>© KPI-Цифра ВУЗ, 2026</p>
-        <a href="#about">Наверх</a>
+        <p>© 2026 KPI Digital University</p>
+        <p>Минимально рабочая система управления KPI цифровизации.</p>
       </div>
     </footer>
 
