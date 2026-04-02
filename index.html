@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KPI-Цифра ВУЗ — минимальные требования внедрения</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="tag">Методический портал для ВУЗов</p>
+        <h1>Минимальные требования по внедрению KPI-системы</h1>
+        <p class="subtitle">
+          Оценка эффективности сотрудников подразделений, ответственных за цифровизацию
+          в высших образовательных учреждениях.
+        </p>
+        <a href="#checklist" class="btn btn-primary">Перейти к чек‑листу внедрения</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="about">
+        <div class="container grid-2">
+          <article class="card">
+            <h2>Цель системы</h2>
+            <p>
+              KPI-система должна обеспечить прозрачную, измеримую и регулярную оценку результатов
+              работы подразделений цифровой трансформации: ИТ-служб, проектных офисов,
+              центров аналитики, EdTech и служб информационной безопасности.
+            </p>
+            <ul>
+              <li>Связь метрик с целями университета и программой развития.</li>
+              <li>Сопоставимость результатов между подразделениями.</li>
+              <li>Использование данных как основы управленческих решений.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>Область применения</h2>
+            <p>Минимальные требования распространяются на сотрудников, которые:</p>
+            <ul>
+              <li>разрабатывают и сопровождают цифровые сервисы;</li>
+              <li>обеспечивают устойчивость и безопасность ИТ-инфраструктуры;</li>
+              <li>ведут цифровые проекты и обучение персонала;</li>
+              <li>анализируют данные и формируют отчётность по цифровизации.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-accent" id="requirements">
+        <div class="container">
+          <h2>Минимальные требования к внедрению</h2>
+          <div class="cards-3">
+            <article class="card">
+              <h3>1. Нормативная база</h3>
+              <ul>
+                <li>Утверждённое положение о KPI (приказ ректора).</li>
+                <li>Матрица ролей и зон ответственности.</li>
+                <li>Регламент пересмотра показателей не реже 1 раза в год.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>2. Структура показателей</h3>
+              <ul>
+                <li>Не менее 4 категорий KPI: сервис, проекты, безопасность, развитие.</li>
+                <li>У каждого KPI: формула, источник данных, периодичность измерения, владелец.</li>
+                <li>Не менее 70% метрик должны быть автоматизированы.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>3. Управление данными</h3>
+              <ul>
+                <li>Единый реестр KPI и версионность изменений.</li>
+                <li>Источники: ITSM, LMS, BI, кадровая система, ИБ-мониторинг.</li>
+                <li>Хранение истории показателей минимум 3 года.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>4. Оценка и мотивация</h3>
+              <ul>
+                <li>Ежеквартальная оценка выполнения целей.</li>
+                <li>Пороговые уровни: критический, целевой, опережающий.</li>
+                <li>Связь результатов KPI с программами развития и стимулирования.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>5. Контроль качества</h3>
+              <ul>
+                <li>Проверка корректности данных и аудиторский след.</li>
+                <li>Механизм апелляций и разбор отклонений.</li>
+                <li>Публикация агрегированной отчётности для руководства.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>6. Подготовка персонала</h3>
+              <ul>
+                <li>Обучение руководителей и сотрудников работе с KPI.</li>
+                <li>Методические материалы и FAQ по расчёту показателей.</li>
+                <li>Ответственный администратор системы в каждом подразделении.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calculator">
+        <div class="container">
+          <h2>Калькулятор интегрального KPI подразделения</h2>
+          <p class="hint">Введите вес и фактическое выполнение по 4 базовым категориям.</p>
+          <form id="kpi-form" class="kpi-form" novalidate>
+            <div class="row">
+              <label>Сервисная устойчивость (вес, %)
+                <input type="number" min="0" max="100" step="1" name="wService" value="25" required />
+              </label>
+              <label>Выполнение сервисных целей (%)
+                <input type="number" min="0" max="200" step="1" name="sService" value="100" required />
+              </label>
+            </div>
+            <div class="row">
+              <label>Проектная реализация (вес, %)
+                <input type="number" min="0" max="100" step="1" name="wProject" value="25" required />
+              </label>
+              <label>Выполнение проектных целей (%)
+                <input type="number" min="0" max="200" step="1" name="sProject" value="100" required />
+              </label>
+            </div>
+            <div class="row">
+              <label>Кибербезопасность и ИБ (вес, %)
+                <input type="number" min="0" max="100" step="1" name="wSecurity" value="25" required />
+              </label>
+              <label>Выполнение целей ИБ (%)
+                <input type="number" min="0" max="200" step="1" name="sSecurity" value="100" required />
+              </label>
+            </div>
+            <div class="row">
+              <label>Цифровые компетенции и развитие (вес, %)
+                <input type="number" min="0" max="100" step="1" name="wGrowth" value="25" required />
+              </label>
+              <label>Выполнение целей развития (%)
+                <input type="number" min="0" max="200" step="1" name="sGrowth" value="100" required />
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Рассчитать KPI</button>
+            <p id="form-error" class="form-error" aria-live="polite"></p>
+          </form>
+
+          <div class="result" id="result" aria-live="polite">
+            Интегральный KPI: <strong>—</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light" id="checklist">
+        <div class="container">
+          <h2>Пошаговый чек‑лист внедрения</h2>
+          <ol class="timeline">
+            <li><strong>Месяц 1:</strong> аудит процессов, утверждение проектной команды, инвентаризация источников данных.</li>
+            <li><strong>Месяц 2:</strong> разработка матрицы KPI по ролям, согласование формул и порогов.</li>
+            <li><strong>Месяц 3:</strong> настройка витрин данных и пилотного дашборда в одном подразделении.</li>
+            <li><strong>Месяц 4:</strong> обучение сотрудников, запуск регламента отчётности, корректировка метрик.</li>
+            <li><strong>Месяц 5+:</strong> масштабирование на весь университет, ежегодный пересмотр KPI-модели.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-row">
+        <p>© KPI-Цифра ВУЗ, 2026</p>
+        <a href="#about">Наверх</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
